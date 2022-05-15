@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../components/header';
 import About from './../screens/about';
 import HomeScreen from './../screens/homeScreen';
+import Pool from '../screens/pool';
 import '../../src/styles/react-router-style/react-router-style.css'
 
 
@@ -15,6 +16,7 @@ const ReactRouter = () => (
                 <Routes>
                     <Route exact path='/' element={<HomeScreen />} />
                     <Route exact path='/about' element={<About />} />
+                    <Route exact path='/pool' element={<Pool />} />
                 </Routes>
             </div>
         </Router>
