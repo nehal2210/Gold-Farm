@@ -1,0 +1,221 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    -webkit-animation: App-logo-spin infinite 20s linear;
+            animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@-webkit-keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.card {
+  width: 35%;
+  height: 50%;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 6px 1px #bfadad;
+          box-shadow: 0px 0px 6px 1px #bfadad;
+  border-radius: 20px;
+}
+
+.card .card-header {
+  background: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0px -1px 5% -1px;
+  border-radius: 17px 17px 0 0;
+}
+
+.card .card-header p {
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin: 2px;
+}
+
+.card .drop-down {
+  width: 40px;
+  height: 40px;
+}
+
+.card .drop-down-toggle::after {
+  display: none;
+}
+
+.card img {
+  width: 30px;
+}
+
+.card .eth {
+  height: 400px;
+  margin: 0 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  border-radius: 15px;
+  background: #e6e2e2;
+}
+
+.card .eth input {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-family: monospace;
+}
+
+.card .eth input:focus {
+  outline: none;
+}
+
+.card .eth button {
+  display: block;
+  background: #ffc308;
+  border-radius: 10px;
+}
+
+.card .eth button:hover {
+  background: #fc8f00;
+}
+
+.card .select-token {
+  height: 400px;
+  margin: 0 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  border-radius: 15px;
+  background: #e6e2e2;
+}
+
+.card .select-token input {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-family: monospace;
+}
+
+.card .select-token input:focus {
+  outline: none;
+}
+
+.card .select-token button {
+  display: block;
+  background: #ffc308;
+  border-radius: 10px;
+}
+
+.card .select-token button:hover {
+  background: #fc8f00;
+}
+
+.card .aerrow {
+  margin: auto;
+  cursor: pointer;
+}
+
+.card .connect-wallet {
+  margin: 2% auto;
+}
+
+.card .connect-wallet button {
+  background: #0100ff;
+  height: 45px;
+  width: 200px;
+  border-radius: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.card .connect-wallet button:hover {
+  background: #041e75;
+}
+
+.modal {
+  width: 200px;
+  height: 500px;
+  background: #61dafb;
+  position: absolute;
+}
+/*# sourceMappingURL=home-screen.css.map */

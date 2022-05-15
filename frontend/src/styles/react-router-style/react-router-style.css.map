@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAA;EACX,gBAAgB,EAAE,OAAO;EACzB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;EACnB,SAAS,EAAE,WAAW;EACtB,MAAM,EAAE,IAAI;CACf",
+    "sources": [
+        "react-router-style.scss"
+    ],
+    "names": [],
+    "file": "react-router-style.css"
+}
