@@ -12,8 +12,8 @@ const Pool = () => {
     useEffect(() => {
         return () => {
             fetch(
-                "https://jsonplaceholder.typicode.com/users")
-                .then((res) => console.log("result", res)
+                "https://tokens.coingecko.com/uniswap/all.json")
+                .then((res) => console.log("result", res.json())
                     //   res.json())
                     //   .then((json) => {
                     //       setState({
