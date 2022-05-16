@@ -267,6 +267,18 @@
           align-items: center;
 }
 
+.modal-screen .modal-header .cross-icon {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-screen .scroll {
+  height: 350px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
 .modal-screen .coins-list {
   border-radius: 20px;
   display: -webkit-box;
@@ -280,8 +292,9 @@
       flex-wrap: wrap;
   -ms-flex-line-pack: center;
       align-content: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -296,19 +309,19 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -ms-flex-line-pack: justify;
-      align-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  margin: 5% 0 0 0;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  width: 70%;
-  margin: 5% 13% 0 -26px;
 }
 /*# sourceMappingURL=home-screen.css.map */

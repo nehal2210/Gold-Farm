@@ -199,15 +199,25 @@
     align-content: center;
     justify-content: space-between;
     align-items: center;
-  }
 
+    .cross-icon{
+      color: red;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+.scroll{
+  height: 350px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
   .coins-list {
     border-radius: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     border: 1px solid blue;
     height: 50px;
@@ -217,12 +227,12 @@
   .coins-details {
     display: flex;
     flex-wrap: wrap;
-    align-content: space-between;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 5% 0 0 0;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 70%;
-    margin: 5% 13% 0 -26px;
   }
 }
 

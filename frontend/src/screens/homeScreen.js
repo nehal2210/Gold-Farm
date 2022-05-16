@@ -19,7 +19,8 @@ const HomeScreen = () => {
   const [firstToken, setFirstToken] = useState(3243);
   const [secondToken, setSecondToken] = useState(2434);
   const [modal, setModal] = useState(0);
-  const [coinsList, setCoinsList] = useState([])
+  const [coinsList, setCoinsList] = useState([]);
+  const [showModal, setShowModal] = useState(true);
 
 
 
@@ -28,7 +29,9 @@ const HomeScreen = () => {
       fetch("https://tokens.coingecko.com/uniswap/all.json")
         .then(function (response) { return response.json(); })
         .then(function (data) {
-          setCoinsList(coinsList.push(data.tokens));
+          const list = [];
+          list.push(data);
+          setCoinsList(list[0].tokens);
           console.log("coinsList", coinsList)
         })
     };
@@ -167,14 +170,14 @@ const HomeScreen = () => {
             <>
               <div className="eth" >
                 <input type="text" value={firstToken} onChange={forFirstToken} />
-                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setModal(1); console.log(modal) }}>ETH</Dropdown.Toggle>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={()=>{setShowModal(true)}} >ETH</Dropdown.Toggle>
               </div>
               <div className="aerrow" onClick={changeInput}>
                 <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
               </div>
               <div className="select-token">
                 <input type="text" value={secondToken} onChange={forSecondToken} />
-                <Dropdown.Toggle id="dropdown-item-button">WBTC</Dropdown.Toggle>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={()=>{setShowModal(true)}}>WBTC</Dropdown.Toggle>
               </div>
               <div className="connect-wallet">
                 <button>Connect Wallet</button>
@@ -185,14 +188,14 @@ const HomeScreen = () => {
 
               <div className="select-token">
                 <input type="text" value={secondToken} onChange={forSecondToken} />
-                <Dropdown.Toggle id="dropdown-item-button" title="WBTC">WBTC</Dropdown.Toggle>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={()=>{setShowModal(true)}} title="WBTC">WBTC</Dropdown.Toggle>
               </div>
               <div className="aerrow" onClick={changeInput}>
                 <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
               </div>
               <div className="eth" >
                 <input type="text" value={firstToken} onChange={forFirstToken} />
-                <Dropdown.Toggle id="dropdown-item-button" title="ETH">ETH</Dropdown.Toggle>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={()=>{setShowModal(true)}} title="ETH">ETH</Dropdown.Toggle>
               </div>
               <div className="connect-wallet">
                 <button>Connect Wallet</button>
@@ -200,21 +203,38 @@ const HomeScreen = () => {
             </>
         }
       </div>
-      <div className="modal-screen">
-        <div className="modal-header">
-          <p>Please Select A Token</p>
-          <p>X</p>
-        </div>
-        <div className="coins-list">
-          <div className="coins">
-            <img style={{ width: "20px", height: "20px" }} src={settingMenu} />
+      {
+        showModal ?
+          <div className="modal-screen">
+            <div className="modal-header">
+              <p>Please Select A Token</p>
+              <p className="cross-icon" onClick={()=>{setShowModal(false)}} >X</p>
+            </div>
+            <div className="scroll">
+              {
+                coinsList.map((d, i) => {
+                  return (
+
+                    <div className="coins-list">
+                      <div className="coins">
+                        <img style={{ width: "20px", height: "20px" }} src={d.logoURI} />
+                      </div>
+                      <div className="coins-details">
+                        <p style={{fontSize: "15px", width: "50%"}}>{d.symbol}</p>
+                        <p style={{fontSize: "12px", width: "45%", overflow: "hidden"}}>{d.name}</p>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
-          <div className="coins-details">
-            <p>ETH</p>
-            <p>Ether</p>
-          </div>
-        </div>
-      </div>
+          :
+          null
+      }
+
+
+
     </div>
   )
 };
