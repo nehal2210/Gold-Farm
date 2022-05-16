@@ -11,18 +11,20 @@ const Pool = () => {
 
     useEffect(() => {
         return () => {
-            fetch(
-                "https://tokens.coingecko.com/uniswap/all.json")
-                .then((res) => console.log("result", res.json())
-                    //   res.json())
-                    //   .then((json) => {
-                    //       setState({
-                    //           items: json,
-                    //           DataisLoaded: true
-                    //       });
-                    //       console.log("state", state);
-                    //   })
-                )
+            // fetch(
+            //     "https://tokens.coingecko.com/uniswap/all.json")
+            //     .then((res) => {
+            //         // console.log("result", res.json())
+            //         const items = res.json()
+            //         console.log(items)
+            //     }
+            //     )
+            fetch("https://tokens.coingecko.com/uniswap/all.json")
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    const items = data;
+                    console.log(items)
+                })
         };
     }, [])
 
@@ -57,7 +59,7 @@ const Pool = () => {
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <img style={{width : "25px", height : "20px"}} src={walletIcon} />
+                                    <img style={{ width: "25px", height: "20px" }} src={walletIcon} />
                                     USDC/ETH
                                 </td>
                                 <td>$1,190</td>

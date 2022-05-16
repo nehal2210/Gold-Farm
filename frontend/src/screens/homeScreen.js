@@ -19,6 +19,20 @@ const HomeScreen = () => {
   const [firstToken, setFirstToken] = useState(3243);
   const [secondToken, setSecondToken] = useState(2434);
   const [modal, setModal] = useState(0);
+  const [coinsList, setCoinsList] = useState([])
+
+
+
+  useEffect(() => {
+    return () => {
+      fetch("https://tokens.coingecko.com/uniswap/all.json")
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          setCoinsList(coinsList.push(data.tokens));
+          console.log("coinsList", coinsList)
+        })
+    };
+  }, [])
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -138,90 +152,69 @@ const HomeScreen = () => {
 
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <p>Swap</p>
-        <Dropdown className="drop-down">
-          <Dropdown.Toggle className="drop-down-toggle" variant="none" id="dropdown-basic">
-            <img src={settingMenu} />
-          </Dropdown.Toggle>
-        </Dropdown>
+    <div className="home-container">
+      <div className="card">
+        <div className="card-header">
+          <p>Swap</p>
+          <Dropdown className="drop-down">
+            <Dropdown.Toggle className="drop-down-toggle" variant="none" id="dropdown-basic">
+              <img src={settingMenu} />
+            </Dropdown.Toggle>
+          </Dropdown>
+        </div>
+        {
+          inputToggle ?
+            <>
+              <div className="eth" >
+                <input type="text" value={firstToken} onChange={forFirstToken} />
+                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setModal(1); console.log(modal) }}>ETH</Dropdown.Toggle>
+              </div>
+              <div className="aerrow" onClick={changeInput}>
+                <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
+              </div>
+              <div className="select-token">
+                <input type="text" value={secondToken} onChange={forSecondToken} />
+                <Dropdown.Toggle id="dropdown-item-button">WBTC</Dropdown.Toggle>
+              </div>
+              <div className="connect-wallet">
+                <button>Connect Wallet</button>
+              </div>
+            </>
+            :
+            <>
+
+              <div className="select-token">
+                <input type="text" value={secondToken} onChange={forSecondToken} />
+                <Dropdown.Toggle id="dropdown-item-button" title="WBTC">WBTC</Dropdown.Toggle>
+              </div>
+              <div className="aerrow" onClick={changeInput}>
+                <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
+              </div>
+              <div className="eth" >
+                <input type="text" value={firstToken} onChange={forFirstToken} />
+                <Dropdown.Toggle id="dropdown-item-button" title="ETH">ETH</Dropdown.Toggle>
+              </div>
+              <div className="connect-wallet">
+                <button>Connect Wallet</button>
+              </div>
+            </>
+        }
       </div>
-      {
-        inputToggle ?
-          <>
-            <div className="eth" >
-              <input type="text" value={firstToken} onChange={forFirstToken} />
-              <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setModal(1); console.log(modal) }}>ETH</Dropdown.Toggle>
-            </div>
-            {
-              modal == 1
-               ?
-                <div className="modal"><p>assa</p></div>
-                :
-                <div className="modal"><p>wwww</p></div>
-            }
-            <div className="aerrow" onClick={changeInput}>
-              <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
-            </div>
-            <div className="select-token">
-              <input type="text" value={secondToken} onChange={forSecondToken} />
-              <Dropdown.Toggle id="dropdown-item-button">WBTC</Dropdown.Toggle>
-            </div>
-            <div className="connect-wallet">
-              <button>Connect Wallet</button>
-            </div>
-
-          </>
-          :
-          <>
-
-            <div className="select-token">
-              <input type="text" value={secondToken} onChange={forSecondToken} />
-              <Dropdown.Toggle id="dropdown-item-button" title="WBTC">WBTC</Dropdown.Toggle>
-            </div>
-            <div className="aerrow" onClick={changeInput}>
-              <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
-            </div>
-            <div className="eth" >
-              <input type="text" value={firstToken} onChange={forFirstToken} />
-              <Dropdown.Toggle id="dropdown-item-button" title="ETH">ETH</Dropdown.Toggle>
-            </div>
-            <div className="connect-wallet">
-              <button>Connect Wallet</button>
-            </div>
-          </>
-      }
-
-      {/* <div style={styles.container}>
-            <h1><Link to="/about"></Link></h1>
-        </div> */}
-      {/* Calling all values which we
-        have stored in usestate */}
-
-
-      {/* <Card className="text-center">
-            <Card.Header>
-            <strong>Address: </strong>
-            {currentAccount}
-            </Card.Header>
-            <Card.Body>
-            <Card.Text>
-                <strong>Balance: </strong>
-                {Balance} 
-            </Card.Text>
-        <Card.Text>
-                <strong>Network: </strong>
-                {Network} 
-            </Card.Text>
-            
-            {!currentAccount && (
-              <button className="waveButton" onClick={connectWallet}>
-                Connect Wallet
-              </button>
-            )}
-            </Card.Body>
-        </Card> */}
+      <div className="modal-screen">
+        <div className="modal-header">
+          <p>Please Select A Token</p>
+          <p>X</p>
+        </div>
+        <div className="coins-list">
+          <div className="coins">
+            <img style={{ width: "20px", height: "20px" }} src={settingMenu} />
+          </div>
+          <div className="coins-details">
+            <p>ETH</p>
+            <p>Ether</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 };
