@@ -7,16 +7,22 @@ import Pool from '../screens/pool';
 import '../../src/styles/react-router-style/react-router-style.css'
 
 
-const ReactRouter = () => (
+
+
+
+
+
+const ReactRouter = (props) => (
     <div>
+        {console.log(props)}
         <Router>
-            <Header />
+            <Header network={props.networkId}/>
             {/* <div style={{background: "red", width: "100%", height: "200px"}}> */}
             <div className='routsContainer'>
                 <Routes>
-                    <Route exact path='/' element={<HomeScreen />} />
+                    <Route exact path='/' element={<HomeScreen connectWallet = {props.connectWallet} currentAccount={props.currentAccount}/>} />
                     <Route exact path='/about' element={<About />} />
-                    <Route exact path='/pool' element={<Pool />} />
+                    <Route exact path='/pool' element={<Pool connectWallet = {props.connectWallet} currentAccount={props.currentAccount}/>} />
                 </Routes>
             </div>
         </Router>

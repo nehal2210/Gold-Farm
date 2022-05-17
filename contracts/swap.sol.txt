@@ -1,0 +1,97 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./Pool.sol";
+contract GLDFarm{
+
+    IERC20 private token;
+
+    // event Received(address, uint);
+    Pool public pool;
+    constructor(address _pool){
+     pool = Pool(_pool);
+
+    }
+
+//amountMinOut means amount after transactionfee
+    function Swap(address token1, address token2,uint256 amountIn, uint256 amountMinOut)public {
+
+        // we suppose here token 1 should be input
+        //output token amount to sender
+        uint pair = pool.getPair(token1,token2);
+        
+        pool.safeTransfer(token2,msg.sender,amountMinOut);
+        // IERC20(token2).transferFrom(address(pool),msg.sender,amountMinOut);
+        
+        pool.setReserveOut(pair, pool.getReserveOut(token1,token2) - amountMinOut); 
+        uint transfee = (amountIn * 3)/1000;
+        uint amountRemainIn = amountIn - transfee;
+        pool.safeTransferFrom(token1,msg.sender , address(pool),amountRemainIn);
+        pool.setReserveIn(pair,pool.getReserveIn(token1,token2) + amountRemainIn); 
+        swapFee(transfee, pair, token1,token2);
+    }
+
+    // function checkBalance() public view returns(uint256,uint256){
+    //     return token.balanceOf(address(this));
+    // }
+
+
+
+    function getTokenIn(uint amountOut,address token1, address token2)public view returns (uint amountIn){
+        uint256 reserveIn = pool.getReserveIn(token1, token2);
+        uint256 reserveOut = pool.getReserveOut(token1, token2);
+        amountIn =  getAmountIn(amountOut,  reserveIn,  reserveOut);
+    }
+
+
+
+    function getTokenOut(uint amountIn,address token1, address token2)public view returns (uint amountOut){
+        uint256 reserveIn = pool.getReserveIn(token1, token2);
+        uint256 reserveOut = pool.getReserveOut(token1, token2);
+        amountOut =  getAmountOut(amountIn,  reserveIn,  reserveOut);
+    }
+
+
+    // given an input amount of an asset and pair reserves, returns the maximum output amount of the other asset
+    function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) internal pure returns (uint amountOut) {
+        require(amountIn > 0, 'UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT');
+        require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY');
+        uint amountInWithFee = amountIn * 997;
+        uint numerator = amountInWithFee * reserveOut ;
+        uint denominator = (reserveIn*1000) + amountInWithFee;
+        amountOut = numerator / denominator;
+    }
+
+    // given an output amount of an asset and pair reserves, returns a required input amount of the other asset
+    function getAmountIn(uint amountOut, uint reserveIn, uint reserveOut) internal pure returns (uint amountIn) {
+        require(amountOut > 0, 'UniswapV2Library: INSUFFICIENT_OUTPUT_AMOUNT');
+        require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY');
+        uint numerator = reserveIn * amountOut * 1000;
+        uint denominator = (reserveOut-amountOut) * 997;
+        amountIn = (numerator / denominator) + 1;
+    }
+
+
+
+
+    function swapFee(uint transFee, uint pair,address token1,address token2) private returns(bool){
+        address[] memory persons = pool.getPersonsOfPair(pair);
+        // suppose token1 is input        
+        uint sumOfShare = pool.getReserveIn(token1,token2);
+        for(uint i=0; i< persons.length;i++){
+            (uint256 b1,uint256 b2) = pool.getPersonBalanceInProtocol(persons[i]);
+            uint shareOfPerPerson = (b1 * transFee) / sumOfShare;
+            (uint256 cf1, uint256 cf2) = pool.getCollectionFeeOfPerson(persons[i]);
+            pool.setCollectionFeeT1OfPerson(persons[i], cf1 + shareOfPerPerson); 
+            pool.safeTransfer(token1, persons[i],shareOfPerPerson);
+        }
+
+        return true;
+    }
+
+
+
+
+
+}

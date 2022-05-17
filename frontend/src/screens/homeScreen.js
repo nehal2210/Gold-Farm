@@ -10,19 +10,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import settingMenu from '../../src/images/setting-icon.png'
 
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
 
-  const [currentAccount, setCurrentAccount] = useState("");
-  const [Balance, setBalance] = useState(0);
-  const [Network, setNetwork] = useState("");
+  // const [currentAccount, setCurrentAccount] = useState("");
+  // const [Balance, setBalance] = useState(0);
+  // const [Network, setNetwork] = useState("");
   const [inputToggle, setInputToggle] = useState(true);
   const [firstToken, setFirstToken] = useState(3243);
   const [secondToken, setSecondToken] = useState(2434);
   const [modal, setModal] = useState(0);
   const [coinsList, setCoinsList] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCoin1, setSelectedCoin1] = useState("coin");
-  const [selectedCoin2, setSelectedCoin2] = useState("coin");
+  const [selectedCoin1, setSelectedCoin1] = useState({symbol:'coin'});
+  const [selectedCoin2, setSelectedCoin2] = useState({symbol:'coin'});
+  const [isCoin1, setisCoin1] = useState(true);
 
 
 
@@ -39,96 +40,6 @@ const HomeScreen = () => {
     };
   }, [])
 
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        console.log("Make sure you have metamask!");
-        return;
-      } else {
-        console.log("We have the ethereum object", ethereum);
-      }
-
-      /*
-      * Check if we're authorized to access the user's wallet
-      */
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        console.log("Found an authorized account:", account);
-        getbalance(account);
-        setCurrentAccount(account);
-        getNetwork();
-      } else {
-        console.log("No authorized account found")
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        alert("Get MetaMask!");
-        return;
-      }
-
-      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-
-      console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]);
-      getbalance(accounts[0]);
-      getNetwork();
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // getbalance function for getting a balance in
-  // a right format with help of ethers
-  const getbalance = (address) => {
-
-    // Requesting balance method
-    window.ethereum
-      .request({
-        method: "eth_getBalance",
-        params: [address, "latest"]
-      })
-      .then((balance) => {
-        // Setting balance
-        setBalance(
-          ethers.utils.formatEther(balance),
-        );
-      });
-  };
-
-
-  const getNetwork = () => {
-
-    // Requesting balance method
-    window.ethereum
-      .request({
-        method: "eth_chainId"
-      })
-      .then((networkId) => {
-        // Setting balance
-        if (networkId == '0x1') { networkId = "Ethereum Main Network"; }
-        else if (networkId == '0x3') { networkId = "Ropsten Test Network"; }
-        else if (networkId == '0x4') { networkId = "Rinkeby Test Network"; }
-        else if (networkId == '0x5') { networkId = "Goerli Test Network"; }
-        else if (networkId == '0x2a') { networkId = "Kovan Test Network"; }
-        else { networkId = networkId }
-
-        setNetwork(
-          networkId,
-        );
-      });
-  };
 
   const changeInput = () => {
     console.log("input", inputToggle);
@@ -151,7 +62,7 @@ const HomeScreen = () => {
   * This runs our function when the page loads.
   */
   useEffect(() => {
-    checkIfWalletIsConnected();
+    // checkIfWalletIsConnected();
     console.log("input", inputToggle);
   }, [])
 
@@ -176,38 +87,39 @@ const HomeScreen = () => {
           inputToggle ?
             <>
               <div className="eth" >
-                <input type="text" value={firstToken} onChange={forFirstToken} />
-                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true) }}>{selectedCoin1}</Dropdown.Toggle>
+                <input type="text"  onChange={(e)=>e.target.value} placeholder='0.00'/>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true); setisCoin1(true)  }}>{selectedCoin1.symbol}</Dropdown.Toggle>
               </div>
               <div className="aerrow" onClick={changeInput}>
                 <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
               </div>
               <div className="select-token">
-                <input type="text" value={secondToken} onChange={forSecondToken} />
-                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true) }}>{selectedCoin2}</Dropdown.Toggle>
+                <input type="text"  onChange={(e)=>e.target.value} placeholder='0.00' disabled/>
+                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true); setisCoin1(false) }}>{selectedCoin2.symbol}</Dropdown.Toggle>
               </div>
               <div className="connect-wallet">
-                <button>Connect Wallet</button>
+              {props.currentAccount? <button >Swap</button>:<button onClick={props.connectWallet}>Connect Wallet</button>}
               </div>
             </>
             :
-            <>
+            // <>
 
-              <div className="select-token">
-                <input type="text" value={secondToken} onChange={forSecondToken} />
-                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true) }} title="WBTC">{selectedCoin2}</Dropdown.Toggle>
-              </div>
-              <div className="aerrow" onClick={changeInput}>
-                <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
-              </div>
-              <div className="eth" >
-                <input type="text" value={firstToken} onChange={forFirstToken} />
-                <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true) }} title="ETH">{selectedCoin1}</Dropdown.Toggle>
-              </div>
-              <div className="connect-wallet">
-                <button>Connect Wallet</button>
-              </div>
-            </>
+            //   <div className="select-token">
+            //     <input type="text" value={secondToken} onChange={forSecondToken} />
+            //     <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true)}} title="WBTC">{selectedCoin2}</Dropdown.Toggle>
+            //   </div>
+            //   <div className="aerrow" onClick={changeInput}>
+            //     <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
+            //   </div>
+            //   <div className="eth" >
+            //     <input type="text" value={firstToken} onChange={forFirstToken} />
+            //     <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true)}} title="ETH">{selectedCoin1}</Dropdown.Toggle>
+            //   </div>
+            //   <div className="connect-wallet">
+            //     <button >Connect Wallet</button>
+            //   </div>
+            // </>
+            null
         }
       </div>
       {
@@ -222,7 +134,7 @@ const HomeScreen = () => {
                 coinsList.map((d, i) => {
                   return (
                     d.chainId == 42 ?
-                      <div className="coins-list" key={d.name + i}>
+                      <div className="coins-list" key={d.name + i} onClick={()=> {setShowModal(false);isCoin1?setSelectedCoin1(d):setSelectedCoin2(d)} }>
                         <div className="coins" onClick={setCoin(d)}>
                           <img style={{ width: "20px", height: "20px" }} src={d.logoURI} />
                         </div>

@@ -1,0 +1,142 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+contract Pool{
+     struct  currentBalanceOfPair  {
+        uint256 currentBalanceOfT1;
+        uint256 currentBalanceOfT2;
+
+    }
+
+    struct collectionBalanceOfPair  {
+        uint256 collectionBalanceOfT1;
+        uint256 collectionBalanceOfT2;
+
+    }
+    
+    mapping(address => mapping(address => uint256)) public getPair;
+    mapping(uint256=>currentBalanceOfPair) public balanceOfPair; //reserves
+    mapping(address=>collectionBalanceOfPair) public collectionFee;
+    mapping(address=>currentBalanceOfPair) public individualPersonBalance;
+    mapping(uint256 =>address[]) personInPair;// persons involve in pair
+
+    uint256[] public allPairs;
+    uint256 pairId = 0;
+    event PairCreated(address indexed token0, address indexed token1, uint256 pair, uint);
+
+    constructor(){}
+
+function createPair(address token1,address token2, uint256 amount1, uint256 amount2)external returns(uint256){
+
+    // suppose all amounts are checked in frontend
+    require(token1 != token2, 'GOLDFARM: IDENTICAL_ADDRESSES');
+    // (address token1, address token2 )= tokenA< tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
+    require(token1 != address(0), 'GOLDFARM: ZERO_ADDRESS');
+    require(getPair[token1][token2] == 0, 'GOLDFARM: PAIR_EXISTS'); // single check is sufficient
+        //suupose it will not generate 0
+        // uint256 pair = uint256(keccak256(abi.encodePacked(token1, token2)));
+   
+        // IUniswapV2Pair(pair).initialize(token0, token1);
+        getPair[token1][token2] = pairId;
+        // getPair[token1][token0] = pair; // populate mapping in the reverse direction
+        IERC20(token1).transferFrom(msg.sender,address(this),amount1);
+        IERC20(token2).transferFrom(msg.sender,address(this),amount2);
+
+        balanceOfPair[pairId] = currentBalanceOfPair(amount1,amount2);
+        individualPersonBalance[msg.sender] = currentBalanceOfPair(amount1,amount2);
+        collectionFee[msg.sender] = collectionBalanceOfPair(0,0);
+        personInPair[pairId].push(msg.sender); //this person involve in this pair
+        allPairs.push(pairId);
+        emit PairCreated(token1, token2, pairId, allPairs.length);
+        pairId += 1;
+        return pairId;
+    }
+
+
+
+
+
+    function allPairsLength() external view returns (uint) {
+        return allPairs.length;
+    }
+
+    function addLiquidity(address token1, address token2,uint256 amount1, uint256 amount2) external{
+        // suppose all security checks are cleared
+    require(token1 != token2, 'GOLDFARM: IDENTICAL_ADDRESSES');
+    // (address token1, address token2, uint256 amount1, uint256 amount2)  = tokenA< tokenB ? (tokenA, tokenB,amountA,amountB) : (tokenB, tokenA,amountB,amountA);
+    require(token1 != address(0), 'GOLDFARM: ZERO_ADDRESS');
+    require(getPair[token1][token2] == 0, 'GOLDFARM: PAIR_NOT_EXISTS'); // single check is sufficient
+        
+        uint256 pair = getPair[token1][token2];
+        
+        IERC20(token1).transferFrom(msg.sender,address(this),amount1);
+        IERC20(token2).transferFrom(msg.sender,address(this),amount2);
+        
+        balanceOfPair[pair].currentBalanceOfT1 += amount1;
+        balanceOfPair[pair].currentBalanceOfT2 += amount2;
+        individualPersonBalance[msg.sender].currentBalanceOfT1 += amount1;
+        individualPersonBalance[msg.sender].currentBalanceOfT2 += amount2;
+        personInPair[pair].push(msg.sender);
+    }
+
+
+    function getReserveIn(address token1,address token2) view public returns(uint256){
+
+        uint256 pair = getPair[token1][token2];        
+        return balanceOfPair[pair].currentBalanceOfT1;
+
+    }
+
+    function getReserveOut(address token1,address token2) view public returns(uint256){
+        uint256 pair =  getPair[token1][token2];
+        return balanceOfPair[pair].currentBalanceOfT2;
+    }
+
+    function setReserveOut(uint pair, uint amount) public {
+        balanceOfPair[pair].currentBalanceOfT2 = amount;
+    }
+
+
+    function setReserveIn(uint pair, uint amount) public{
+        balanceOfPair[pair].currentBalanceOfT1 = amount;
+    }
+
+    function getPersonsOfPair(uint pair) public view returns(address[] memory){
+    return personInPair[pair];
+    }
+
+    function getPersonBalanceInProtocol(address person) public view returns(uint256,uint256){
+        return (individualPersonBalance[person].currentBalanceOfT1,individualPersonBalance[person].currentBalanceOfT2);
+    }
+
+    function getCollectionFeeOfPerson(address person) public view returns(uint256,uint256){
+        return (collectionFee[person].collectionBalanceOfT1,collectionFee[person].collectionBalanceOfT2);
+
+    }
+
+    function setCollectionFeeT1OfPerson(address person,uint cf) public  {
+         collectionFee[person].collectionBalanceOfT1 = cf; 
+    }
+
+    function setCollectionFeeT2OfPerson(address person,uint cf) public  {
+         collectionFee[person].collectionBalanceOfT2 = cf; 
+    }
+
+
+    function safeTransfer(address _token, address to,uint256 amount)public {
+        IERC20(_token).transfer(to,amount);
+    }
+
+        function safeTransferFrom(address _token,address from, address to,uint256 amount)public {
+        IERC20(_token).transferFrom(from,to,amount);
+    }
+}
+
+
+
+
+
+
+
+

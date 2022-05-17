@@ -1,46 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import '../../src/styles/pool-style/pool-style.css';
 import walletIcon from '../images/wallet-icon-rm.png'
+import { ethers } from "ethers";
 
-
-const Pool = () => {
+const Pool = (props) => {
 
     const [state, setState] = useState()
 
+    const [isKovanNetwork, setIsKovanNetwork] = useState(false);
+    const [ShowAddLiq, setShowAddLiq] = useState(false)
 
+  
 
-    useEffect(() => {
-        return () => {
-            // fetch(
-            //     "https://tokens.coingecko.com/uniswap/all.json")
-            //     .then((res) => {
-            //         // console.log("result", res.json())
-            //         const items = res.json()
-            //         console.log(items)
-            //     }
-            //     )
-            fetch("https://tokens.coingecko.com/uniswap/all.json")
-                .then(function (response) { return response.json(); })
-                .then(function (data) {
-                    const items = data;
-                    console.log(items)
-                })
-        };
-    }, [])
+    // useEffect(() => {
+    //     // return () => {
+    //     //     // fetch(
+    //     //     //     "https://tokens.coingecko.com/uniswap/all.json")
+    //     //     //     .then((res) => {
+    //     //     //         // console.log("result", res.json())
+    //     //     //         const items = res.json()
+    //     //     //         console.log(items)
+    //     //     //     }
+    //     //     //     )
+    //     //     // fetch("https://tokens.coingecko.com/uniswap/all.json")
+    //     //     //     .then(function (response) { return response.json(); })
+    //     //     //     .then(function (data) {
+    //     //     //         const items = data;
+    //     //     //         console.log(items)
+    //     //     //     })
+        
+        
+            
+        
+    //     // };
+    //     ;}, [])
 
 
 
 
     return (
         <div className='pool-container'>
+            
+
+           
             <div className='pool-header'>
                 <p>POOL</p>
-                <button>Create Pool</button>
+                <button onClick={()=>setShowAddLiq(true)}>Create Pool</button>
             </div>
             <div className='pool-card'>
                 <img src={walletIcon} />
                 <p>Your active V3 liquidity positions will appear here.</p>
-                <button>Connect a wallet</button>
+                {!props.currentAccount && (<button onClick={props.connectWallet}>Connect a wallet</button>)}
             </div>
             <div className='other-pool-list'></div>
             <div className='all-pools-container'>
@@ -91,6 +101,7 @@ const Pool = () => {
                     </table>
                 </div>
             </div>
+ 
 
         </div>
     )
