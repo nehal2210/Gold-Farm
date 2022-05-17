@@ -135,3 +135,128 @@
   text-align: center;
 }
 /*# sourceMappingURL=pool-style.css.map */
+
+.modal-rating {
+  background-color: #cecece;
+  padding: 20px;
+  color: #000;
+  font-family: sans-serif;
+  width: 350px;
+  border-radius: 10px;
+  position: relative;
+}
+.modal-rating .overlay{
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: #FB7711;
+  border-radius: 10px;
+  transform: translate(-5px, 5px);
+}
+
+
+.modal-rating i{
+  color: #FB7711;
+  background-color: #26303B;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.modal-rating h2{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-rating p{
+  font-size: 13px;
+  color: #a4a9b2;
+}
+
+.modal-rating .rating {
+  display: block;
+}
+.modal-rating .rating input[type="radio"]{
+  display: none;
+}
+.modal-rating .rating label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 25px;
+  
+  color: #a4a9b2;
+  background-color: #26303B;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.modal-rating .rating label:hover{
+  background-color: #7C8897;
+  color: #FFFFFF;
+}
+.modal-rating .rating input:checked + label{
+  background-color: #FB7711;
+  color: #FFFFFF;
+}
+
+
+.modal-rating button[type="submit"]{
+  background-color: #FB7711;
+  color: #FFFFFF;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 99px;
+  border: 0px;
+  margin-top: 25px;
+  cursor: pointer;
+}
+.modal-rating button[type="submit"]:hover{
+  color: #FB7711;
+  background-color: #FFFFFF;
+}
+
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+div.rating button {
+  background: #0100ff;
+  height: 35px;
+  width: 135px;
+  border-radius: 20px;
+  font-size: 20px;
+  color: white;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+div.rating .select-token{
+  width: 49%;
+  display: inline-block;
+}
+
+div.rating input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+div.rating .modal-screen {
+  width: 88%;
+  height: 450px;
+  background: #ffffff;
+  position: absolute;
+  border-radius: 20px;
+  top: 15%;
+  padding: 0.5% 0% -1px 0px;
+}
