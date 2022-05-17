@@ -97,13 +97,14 @@
                 box-shadow: 0 0 7px 0px #545151;
                 background: white;
 
-                th{
+                th {
                     // border: 1px solid gray;
                     text-align: center;
                     // border-radius: 20px;
                     // margin: 20px;
                 }
-                td{
+
+                td {
                     border: 3px double gray;
                     text-align: center;
 
@@ -193,4 +194,93 @@
 
         }
     }
+
+
+    .modal-pool {
+        border: 1px solid blue;
+        position: absolute;
+        top: 10%;
+        width: 40%;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 9px 3px grey;
+
+        .modal-pool-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-content: stretch;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+    }
+
+    .cross-icon {
+        color: red;
+        font-size: 20px;
+        cursor: pointer;
+        text-align: end;
+        margin: 0px 3%;
+    }
+
+    .pool-modal-heading {
+        font-size: 20px;
+        font-family: sans-serif;
+        font-weight: 600;
+        margin: 2px;
+    }
+
+    .modal-pool-container {
+        padding: 2%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+
+        .btns {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: space-between;
+            justify-content: space-around;
+
+            button {
+                text-align: center;
+                padding: 0% 0 1% 0;
+            }
+        }
+
+        .inputs {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid blue;
+            margin: 3% 0;
+        }
+    }
+
+.modal-screen{
+    width: 70%;
+    height: 380px;
+}
 }

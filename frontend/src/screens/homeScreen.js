@@ -90,7 +90,7 @@ const HomeScreen = (props) => {
                 <input type="text"  onChange={(e)=>e.target.value} placeholder='0.00'/>
                 <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowModal(true); setisCoin1(true)  }}>{selectedCoin1.symbol}</Dropdown.Toggle>
               </div>
-              <div className="aerrow" onClick={changeInput}>
+              <div className="aerrow">
                 <img src="https://d1bd5u3q1t3nu7.cloudfront.net/icons/16/arrow-down-icon.png" />
               </div>
               <div className="select-token">
