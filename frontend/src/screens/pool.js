@@ -4,7 +4,8 @@ import walletIcon from '../images/wallet-icon-rm.png'
 import { ethers } from "ethers";
 // import { ethers } from "ethers";
 import { Button, Card, Dropdown, DropdownButton } from "react-bootstrap";
-
+import { Link } from 'react-router-dom';
+import icon from '../images/setting-icon.png'
 const Pool = (props) => {
 
   const [state, setState] = useState()
@@ -109,10 +110,127 @@ const Pool = (props) => {
         <p>POOL</p>
         <button onClick={() => setShowModal(true)}>Create Pool</button>
       </div>
-      <div className='pool-card'>
+      {/* <div className='pool-card'>
         <img src={walletIcon} />
         <p>Your active V3 liquidity positions will appear here.</p>
         {!props.currentAccount && (<button onClick={props.connectWallet}>Connect a wallet</button>)}
+      </div> */}
+      <div className='your-pools-card'>
+        <div className='your-pools-card-header'>
+          <p>Your Position</p>
+          <p>Hide closed position </p>
+        </div>
+        <div className='scroll'>
+
+          <Link to="/position-details">
+            <div className='your-pools-card-content'>
+              <div className='your-pools-card-content-left'>
+                <img src={icon} />
+                <img src={icon} />
+                <p>DAI/ETH</p>
+                <p className='label'>0.3</p>
+              </div>
+              <div className='your-pools-card-content-right'>
+                <p style={{ with: "20%" }} className="label width-less">In range</p>
+                <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+              </div>
+            </div>
+          </Link>
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+          <div className='your-pools-card-content'>
+            <div className='your-pools-card-content-left'>
+              <img src={icon} />
+              <img src={icon} />
+              <p>DAI/ETH</p>
+              <p className='label'>0.3</p>
+            </div>
+            <div className='your-pools-card-content-right'>
+              <p style={{ with: "20%" }} className="label width-less">In range</p>
+              <p>Min: 0 Dai per Eth - Max: &#8734; Dai per Eth</p>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
       </div>
       <div className='other-pool-list'></div>
       <div className='all-pools-container'>
@@ -164,7 +282,7 @@ const Pool = (props) => {
                 <Dropdown.Toggle id="dropdown-item-button" onClick={() => { setShowCoinModal(true); setisCoin1(false) }}>{selectedCoin2.symbol}</Dropdown.Toggle>
               </div>
               <div className='inputs'>
-                <input type="text" disabled />
+                <input type="text" value={"3% Tier Fee"} disabled />
                 <p className='pool-modal-heading'>Deposite Amounts</p>
                 <div style={{ width: "100%" }}>
                   Coin<input type="text" />
@@ -180,10 +298,9 @@ const Pool = (props) => {
             {
               showCoinModal ?
                 <div className="modal-screen">
-                  {/* <div className="modal-header">
-                    <p>Please Select A Token</p>
+                  <div className="modal-header">
                     <p className="cross-icon" onClick={() => { setShowCoinModal(false) }} >X</p>
-                  </div> */}
+                  </div>
                   <div className="scroll">
                     {
                       coinsList.map((d, i) => {

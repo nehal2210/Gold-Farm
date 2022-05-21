@@ -276,11 +276,139 @@
             border-radius: 20px;
             border: 1px solid blue;
             margin: 3% 0;
+            padding: 0 2%;
         }
     }
 
-.modal-screen{
-    width: 70%;
-    height: 380px;
-}
+    .modal-screen {
+        width: 70%;
+        height: 350px;
+        border: 1px solid blue;
+        box-shadow: 0 0 9px 3px grey;
+
+        .scroll {
+            height: 300px;
+            overflow-x: auto;
+            overflow-y: auto;
+            border-radius: 20px;
+        }
+
+        .modal-header {
+            display: block;
+            position: relative;
+
+            p {
+                position: absolute;
+                left: 29%;
+                top: 10%;
+            }
+        }
+
+    }
+
+    .your-pools-card {
+        width: 70%;
+        // height: 200px;
+        border: 1px solid #1533c9;
+        border-radius: 20px;
+        box-shadow: 0 0 7px 0px #545151;
+        background: white;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: auto;
+
+        .your-pools-card-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: space-between;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .your-pools-card-content {
+            width: 98%;
+            height: 75px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0% 4%;
+            border-radius: 35px;
+            background: #e6e2e2;
+            margin: 1% 0;
+        }
+
+        .scroll {
+            width: 98%;
+            max-height: 250px;
+            overflow: auto;
+            margin: 2% 0;
+        }
+
+        .your-pools-card-content-left {
+            width: 20%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
+
+            p {
+                margin-bottom: -1px;
+            }
+
+            .label {
+                width: 100px;
+                border: 1px solid blue;
+                border-radius: 20px;
+                background: #c3c3c3;
+            }
+        }
+
+        .your-pools-card-content-right {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: flex-end;
+            align-items: flex-end;
+
+
+
+            p {
+                width: 100%;
+            }
+
+            .width-less {
+                width: 30% !important;
+                margin: 1%;
+            }
+            .label {
+                width: 100px;
+                border: 1px solid blue;
+                border-radius: 20px;
+                background: #c3c3c3;
+            }
+        }
+    }
+
+
+
 }
